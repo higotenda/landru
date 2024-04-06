@@ -178,6 +178,7 @@ def process_address(addr):
     ndf, edf = export_to_csv(g, loc, "osm/map");
     logger.info("Converting raw_demands.csv global co-ords to local.");
     convert_coords("raw_demands.csv", "osm/area_demands.csv", local_coords, loc);
+    return loc
 
 def process_coords(point):
     g = find_graph(point);
@@ -185,6 +186,7 @@ def process_coords(point):
     ndf, edf = export_to_csv(g, point, "osm/map");
     logger.info("Converting raw_demands.csv global co-ords to local.");
     convert_coords("raw_demands.csv", "osm/area_demands.csv", local_coords, point);
+    return point
 
 if __name__ == "__main__":
     process_address("Malleshwaram, Bengaluru, India");
