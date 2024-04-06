@@ -121,6 +121,9 @@ def export_to_csv(graph, center, filename):
     Export graphs into two csv files
     """
 
+    a = node_proc(graph.nodes(data=True), center);
+    b = edge_proc(graph.edges(data=True));
+
     nodes_df = pd.DataFrame(a, columns=['node_id', 'x', 'y']);
     edges_df = pd.DataFrame(b, columns=['name', 'source', 'target', 'length', 'free_flow_speed', 'jam_density', 'merge_priority', 'st_name']);
 
@@ -147,9 +150,34 @@ def find_graph(addr: str):
     loc = get_lat_lon(addr);
     return s, loc;
 
-if __name__ == "__main__":
-    g, loc = find_graph("Malleshwaram, Bengaluru, India");
+def find_graph_from_loc(point):
+    logger.info("Querying graph from OSM.")
+    s = ox.graph_from_point(
+        point,
+        dist=int(RAD_DIST * 1000),
+        dist_type="network",
+        network_type= "drive_service",
+        simplify=True,
+        retain_all=False,
+        truncate_by_edge=False,
+        custom_filter=FILTER
+    );
+    logger.info("Obtained result.");
+    return s;
+
+def process_address(addr):
+    g, loc = find_graph(addr);
     logger.info("Collecting and Exporting to CSV..");
     ndf, edf = export_to_csv(g, loc, "osm/map");
     logger.info("Converting raw_demands.csv global co-ords to local.");
     convert_coords("raw_demands.csv", "osm/area_demands.csv", local_coords, loc);
+
+def process_coords(point):
+    g = find_graph(point);
+    logger.info("Collecting and Exporting to CSV..");
+    ndf, edf = export_to_csv(g, point, "osm/map");
+    logger.info("Converting raw_demands.csv global co-ords to local.");
+    convert_coords("raw_demands.csv", "osm/area_demands.csv", local_coords, point);
+
+if __name__ == "__main__":
+    process_address("Malleshwaram, Bengaluru, India");
