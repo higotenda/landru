@@ -44,6 +44,7 @@ IMPL Ideas:
     3. Make demand non-uniform.
 """
 
+
 def local_coords(p1, p0, R=6_366_707):
     """
     Get local co-ords of p1 around p0 tuples of (lat, lon)
@@ -51,8 +52,6 @@ def local_coords(p1, p0, R=6_366_707):
     
     theta, phi0 = p0[::-1];
     theta1, phi1= p1[::-1];
-
-    theta, phi0, theta1, phi1 = (x*math.pi/180 for x in (theta, phi0, theta1, phi1));
 
     Tdiff = theta1 - theta;
     Pdiff = phi1 - phi0;
@@ -65,10 +64,10 @@ def local_coords(p1, p0, R=6_366_707):
 def get_lat_lon(location_name):
     """
     Get latitude and longitude details of a location using OpenStreetMap via OSMnx.
-    
+
     Parameters:
     location_name: Name or address of the location.
-    
+
     Returns:
     Tuple containing latitude and longitude details (latitude, longitude).
     """
@@ -76,8 +75,9 @@ def get_lat_lon(location_name):
         # Retrieve the point of interest from OpenStreetMap
         return ox.geocode(location_name)
     except Exception as e:
-        logger.error(f"Failed to geocode {location_name}");
-        return (None, None);
+        logger.error(f"Failed to geocode {location_name}")
+        return (None, None)
+
 
 def node_proc(nodes_iter, center):
     for node in nodes_iter:
@@ -120,27 +120,22 @@ def export_to_csv(graph, center, filename):
     """
     Export graphs into two csv files
     """
-    
-    a = node_proc(graph.nodes(data=True), center);
-    b = edge_proc(graph.edges(data=True));
 
     nodes_df = pd.DataFrame(a, columns=['node_id', 'x', 'y']);
     edges_df = pd.DataFrame(b, columns=['name', 'source', 'target', 'length', 'free_flow_speed', 'jam_density', 'merge_priority', 'st_name']);
 
-    logger.info("Generated DataFrames.");
-    
     # Export DataFrames to CSV
-    nodes_df.to_csv(f'{filename}_nodes.csv', index=False)
-    edges_df.to_csv(f'{filename}_edges.csv', index=False)
+    nodes_df.to_csv(f"{filename}_nodes.csv", index=False)
+    edges_df.to_csv(f"{filename}_edges.csv", index=False)
 
-    return (nodes_df, edges_df);
+    return (nodes_df, edges_df)
 
 
 def find_graph(addr: str):
-    logger.info("Querying graph from OSM.");
+    logger.info("Querying graph from OSM.")
     s = ox.graph_from_address(
-        addr, 
-        dist=int(RAD_DIST*1000),
+        addr,
+        dist=int(RAD_DIST * 1000),
         dist_type="network",
         network_type= "drive_service",
         simplify=True,

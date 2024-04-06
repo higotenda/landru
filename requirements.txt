@@ -1,2 +1,4 @@
 tianshou
 uxsim
+osmnx
+scikit-learn

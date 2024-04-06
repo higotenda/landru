@@ -18,7 +18,7 @@ The overarching goals of Landru include:
 
 The Landru project employs the following approach:
 
-1. **Data Collection**: Gathering simulated traffic data from UXSIM repository.
+1. **Data Collection**: Utilizing OpenStreetMap (OSM) data as the primary source, we extract relevant traffic information. This involves accessing road networks, traffic signals, and other pertinent details from OSM. Subsequently, the extracted data is processed to convert it into UXSIM-compatible traffic data. This process ensures compatibility and alignment with the simulation framework while retaining the integrity and accuracy of the original data.
 
 2. **Model Training**: Training a machine learning model using reinforcement learning techniques to understand and predict traffic patterns.
 
@@ -26,17 +26,13 @@ The Landru project employs the following approach:
 
 4. **Deployment**: Integrating the trained model into real-world traffic management systems for practical applications.
 
-## Repository Structure
+## Dependencies
 
-The repository contains the following components:
+The Landru project relies on the following libraries, frameworks, and tools:
 
-- **Codebase**: Consists of scripts, modules, and notebooks for data preprocessing, model training, evaluation, and deployment.
-  
-- **Documentation**: Includes detailed documentation on project setup, data preprocessing techniques, model architecture, and usage instructions.
+1. **UXSim**: This library serves as the foundation for traffic simulation, providing essential functionalities for modeling traffic scenarios, including vehicle movement, traffic signals, and road networks.
 
-- **Examples**: Provides sample scripts and notebooks demonstrating the usage of the model for various traffic optimization tasks.
-
-- **Dependencies**: Lists the required libraries, frameworks, and tools needed to run the codebase.
+2. **Tianshou**: Tianshou is utilized as the core framework for implementing reinforcement learning algorithms. It provides a comprehensive set of tools and utilities for building and training reinforcement learning agents. In the context of Landru, Tianshou forms the basis for developing an intelligent agent capable of learning and optimizing traffic flow in real-time based on collected data.
 
 ## Usage
 
