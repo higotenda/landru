@@ -1,5 +1,3 @@
-![image](https://github.com/higotenda/landru/assets/138211208/792d3104-18ba-4c42-9e1a-3bfa223f82fc)# Landru
-
 ## Introduction
 
 Landru is a repository housing the codebase for creating and training a machine learning model that utilizes traffic simulation data for large-scale traffic optimization. The primary objectives of this project are to understand traffic patterns, predict traffic conditions, and optimize traffic flow through the application of reinforcement learning techniques on virtual traffic networks.
