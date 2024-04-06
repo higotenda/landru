@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf=8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Navigation Bar</title>
+        <title>Runtime Lords</title>
         <style class="text/css">
             *{
                 text-decoration: none;
@@ -15,7 +15,7 @@
                 display: flex;align-items: center;justify-content: space-between;
             }
             .logo a{
-                font-size: 35px; font-weight: 600; color: white;
+                font-size: 45px; font-weight: 600; color: white;
             }
             li{
                 list-style: none; display: inline-block;
@@ -29,10 +29,36 @@
             button a{
                 color: crimson;font-weight: bold;font-size: 15px;
             }
+            .animation{
+                font-size: 20px;
+                margin-top: 28px;
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                white-space: nowrap;
+                overflow: hidden;
+                border-right: 2px solid transparent;
+                animation: typing 2s steps(20);
+            }
+            @keyframes typing{
+                from{width: 0;}
+                to{width: 100%;}
+            }
+            body{
+                height: 100vh;
+                background:linear-gradient(-45deg,black,rgba(255, 109, 11, 0.973));
+                background-size: 400% 400%;
+                animation: gradient-animation 10s ease infinite;
+            }
+            @keyframes gradient-animation {
+                0%{background-position: 0% 50%;}
+                50%{background-position: 100% 50%;}
+                100%{background-position: 0% 50%;}
+            }
         </style>
 
     </head>
     <body>
+        
         <nav class="navbar">
             <div class="navdiv">
                 <div class="logo"><a href="#">Augur</a></div>
@@ -47,5 +73,6 @@
             </div>
             
         </nav>
+        <p class="animation">Traffic Flow Optimization</p>
     </body>
 </html>
