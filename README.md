@@ -33,7 +33,7 @@ The Landru project relies on the following libraries, frameworks, and tools:
 2. **Tianshou**: Tianshou is utilized as the core framework for implementing reinforcement learning algorithms. It provides a comprehensive set of tools and utilities for building and training reinforcement learning agents. In the context of Landru, Tianshou forms the basis for developing an intelligent agent capable of learning and optimizing traffic flow in real-time based on collected data.
 
 ## Demo
-
+This demonstration showcases the traffic flow optimization achieved through the Gradio application. It illustrates the effective management and optimization of traffic flow for enhanced efficiency.
 ![Demo Image](https://github.com/higotenda/landru/blob/main/outputfinalnexus.png)
 
 ## Usage
