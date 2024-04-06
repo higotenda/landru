@@ -204,20 +204,22 @@ def find_graph_from_loc(point):
 
 
 def process_address(addr):
-    g, loc = find_graph(addr);
-    logger.info("Collecting and Exporting to CSV..");
-    ndf, edf = export_to_csv(g, loc, "osm/map");
-    logger.info("Converting raw_demands.csv global co-ords to local.");
-    convert_coords("raw_demands.csv", "osm/area_demands.csv", local_coords, loc);
+    g, loc = find_graph(addr)
+    logger.info("Collecting and Exporting to CSV..")
+    ndf, edf = export_to_csv(g, loc, "osm/map")
+    logger.info("Converting raw_demands.csv global co-ords to local.")
+    convert_coords("raw_demands.csv", "osm/area_demands.csv", local_coords, loc)
     return loc
 
+
 def process_coords(point):
-    g = find_graph(point);
-    logger.info("Collecting and Exporting to CSV..");
-    ndf, edf = export_to_csv(g, point, "osm/map");
-    logger.info("Converting raw_demands.csv global co-ords to local.");
-    convert_coords("raw_demands.csv", "osm/area_demands.csv", local_coords, point);
+    g = find_graph(point)
+    logger.info("Collecting and Exporting to CSV..")
+    ndf, edf = export_to_csv(g, point, "osm/map")
+    logger.info("Converting raw_demands.csv global co-ords to local.")
+    convert_coords("raw_demands.csv", "osm/area_demands.csv", local_coords, point)
     return point
+
 
 if __name__ == "__main__":
     process_address("Malleshwaram, Bengaluru, India")
