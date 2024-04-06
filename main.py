@@ -5,10 +5,12 @@ from demparser import parse_demands
 import osm2csv as ocv
 import argparse
 
-logging.basicConfig(level=logging.INFO);
-logger = logging.getLogger(__name__);
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-SIMULATION_DURATION = 2*3600;   # Simulate 2 hours worth of traffic.
+SIMULATION_DURATION = 2 * 3600
+# Simulate 2 hours worth of traffic.
+
 
 def gen_links_from_csv(W, fname):
     """
@@ -42,6 +44,7 @@ def gen_links_from_csv(W, fname):
             f"Imported {succ} links, success rate {succ / total} [{total - succ} fails]"
         )
 
+
 def routine():
     # Define the main simulation
     # Units are standardized to seconds (s) and meters (m)
@@ -60,11 +63,21 @@ def routine():
 
     W.show_network(network_font_size=1)
 
-    for (incord, outcords) in parse_demands("osm/area_demands.csv"):
-        logger.info(f"incord: {incord}, outcords: {outcords}");
+    for incord, outcords in parse_demands("osm/area_demands.csv"):
+        logger.info(f"incord: {incord}, outcords: {outcords}")
         for c in outcords:
-            logger.info(f"Added demand between {c} and {incord}");
-            W.adddemand_area2area(c[0], c[1], 0, incord[0], incord[1], 0.05, 0, SIMULATION_DURATION, volume=5000);
+            logger.info(f"Added demand between {c} and {incord}")
+            W.adddemand_area2area(
+                c[0],
+                c[1],
+                0,
+                incord[0],
+                incord[1],
+                0.05,
+                0,
+                SIMULATION_DURATION,
+                volume=5000,
+            )
 
     W.exec_simulation()
     logger.info("Creating anim...")
@@ -74,27 +87,40 @@ def routine():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Landru Traffic Optimizer CLI.");
+    parser = argparse.ArgumentParser(description="Landru Traffic Optimizer CLI.")
     parser.add_argument("-a", "--address", help="Address to process")
-    parser.add_argument("-c", "--coordinates", nargs=2, metavar=("LAT", "LON"), type=float, help="Latitude and Longitude of Place.")
+    parser.add_argument(
+        "-c",
+        "--coordinates",
+        nargs=2,
+        metavar=("LAT", "LON"),
+        type=float,
+        help="Latitude and Longitude of Place.",
+    )
 
     # Optional argument to run the built-in test routine
-    parser.add_argument("-t", "--testrun", action="store_true", help="Run the routine, but do not generate OSM data.")
+    parser.add_argument(
+        "-t",
+        "--testrun",
+        action="store_true",
+        help="Run the routine, but do not generate OSM data.",
+    )
 
     args = parser.parse_args()
 
-    logger.debug(f"Received args: {args}.");
+    logger.debug(f"Received args: {args}.")
 
     if args.address:
         ocv.process_address(args.address)
-        routine();
+        routine()
     elif args.coordinates:
         ocv.process_coords(args.coordinates)
-        routine();
+        routine()
     elif args.testrun:
-        routine();
+        routine()
     else:
-        print("No action specified. Use -a, -c, or -t.");
+        print("No action specified. Use -a, -c, or -t.")
+
 
 if __name__ == "__main__":
     main()
