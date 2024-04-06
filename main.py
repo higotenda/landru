@@ -1,12 +1,14 @@
 from uxsim import *
 import csv
 import logging
+from demparser import parse_demands
+import osm2csv as ocv
+import argparse
 
-# logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO);
+logger = logging.getLogger(__name__);
 
-SIMULATION_DURATION = 3600
-
+SIMULATION_DURATION = 2*3600;   # Simulate 2 hours worth of traffic.
 
 def gen_links_from_csv(W, fname):
     """
@@ -40,35 +42,59 @@ def gen_links_from_csv(W, fname):
             f"Imported {succ} links, success rate {succ / total} [{total - succ} fails]"
         )
 
+def routine():
+    # Define the main simulation
+    # Units are standardized to seconds (s) and meters (m)
+    W = World(
+        name="",  # Scenario name
+        deltan=5,  # Simulation aggregation unit delta n
+        tmax=SIMULATION_DURATION,  # Total simulation time (s)
+        print_mode=1,
+        save_mode=1,
+        show_mode=0,  # Various options
+        random_seed=0xBA115,  # Set the random seed
+    )
 
-# Define the main simulation
-# Units are standardized to seconds (s) and meters (m)
-W = World(
-    name="",  # Scenario name
-    deltan=5,  # Simulation aggregation unit delta n
-    tmax=SIMULATION_DURATION,  # Total simulation time (s)
-    print_mode=1,
-    save_mode=1,
-    show_mode=0,  # Various options
-    random_seed=0xBA115,  # Set the random seed
-)
+    W.generate_Nodes_from_csv("osm/map_nodes.csv")
+    gen_links_from_csv(W, "osm/map_edges.csv")
 
-W.generate_Nodes_from_csv("osm/map_nodes.csv")
-gen_links_from_csv(W, "osm/map_edges.csv")
+    W.show_network(network_font_size=1)
 
-W.show_network(network_font_size=1)
+    for (incord, outcords) in parse_demands("osm/area_demands.csv"):
+        logger.info(f"incord: {incord}, outcords: {outcords}");
+        for c in outcords:
+            logger.info(f"Added demand between {c} and {incord}");
+            W.adddemand_area2area(c[0], c[1], 0, incord[0], incord[1], 0.05, 0, SIMULATION_DURATION, volume=5000);
 
-W.adddemand_area2area(
-    13.001867215947623,
-    77.56709046386388,
-    0,
-    12.999073447375757,
-    77.5724257603931,
-    0.05,
-    0,
-    3600,
-    volume=5000,
-)
+    W.exec_simulation()
+    logger.info("Creating anim...")
+    W.analyzer.network_anim(network_font_size=1, maxwidth=6)
+    logger.info("Finished creating animation")
+    W.analyzer.output_data("out/sim")
 
-W.exec_simulation()
-W.analyzer.output_data("out/sim")
+
+def main():
+    parser = argparse.ArgumentParser(description="Landru Traffic Optimizer CLI.");
+    parser.add_argument("-a", "--address", help="Address to process")
+    parser.add_argument("-c", "--coordinates", nargs=2, metavar=("LAT", "LON"), type=float, help="Latitude and Longitude of Place.")
+
+    # Optional argument to run the built-in test routine
+    parser.add_argument("-t", "--testrun", action="store_true", help="Run the routine, but do not generate OSM data.")
+
+    args = parser.parse_args()
+
+    logger.debug(f"Received args: {args}.");
+
+    if args.address:
+        ocv.process_address(args.address)
+        routine();
+    elif args.coordinates:
+        ocv.process_coords(args.coordinates)
+        routine();
+    elif args.testrun:
+        routine();
+    else:
+        print("No action specified. Use -a, -c, or -t.");
+
+if __name__ == "__main__":
+    main()
