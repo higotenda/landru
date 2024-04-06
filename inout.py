@@ -45,7 +45,7 @@ def get_location_from_user():
             print("Invalid input format. Please enter the coordinates in the format 'latitude,longitude'.")
 
 def save_to_csv(crowded_place_coords, nearby_places_coords, filename):
-    with open(r"C:\Users\Admin\AppData\Local\Programs\Python\Python311\inout.csv", 'a', newline='') as csvfile:
+    with open(r"./raw_demands.csv", 'a', newline='') as csvfile:
         writer = csv.writer(csvfile)
         crowded_place_lat, crowded_place_lng = crowded_place_coords
         writer.writerow(['in', crowded_place_lat, crowded_place_lng])

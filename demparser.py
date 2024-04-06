@@ -52,3 +52,4 @@ def convert_coords(fp: str, out: str, func, center):
 				logger.info(f"Point {pos} from {center} is {cps}");
 			except Exception as e:
 				logger.warn(f"Failed to parse line {line}");
+		print(file=f2);
