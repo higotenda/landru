@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Augur</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(-45deg, rgb(59, 56, 56), rgba(0, 0, 0, 0.973));
+      background-size: 400% 400%;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      height: 100vh;
+      animation: gradient-animation 10s ease infinite;
+    }
+
+    @keyframes gradient-animation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .navbar {
+      background: crimson;
+      padding: 15px;
+    }
+
+    .navdiv {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo a {
+      font-size: 45px;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+    }
+
+    li {
+      margin-left: 15px;
+    }
+
+    li a {
+      color: black;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    li a:hover {
+      color: rgb(252, 252, 252);
+    }
+
+    button {
+      background-color: white;
+      border-radius: 14px;
+      padding: 10px;
+      width: 90px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button a {
+      color: rgb(0, 0, 0);
+      font-weight: bold;
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    button:hover {
+      background-color: rgb(0, 0, 0);
+    }
+
+    .animation {
+      font-size: 20px;
+      margin-top: 28px;
+      font-weight: bold;
+      font-family: Arial, Helvetica, sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid transparent;
+      animation: typing 2.5s steps(20)infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    /* Style for Gradio container */
+    .gradio-container {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #000000;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 1200px;
+      height: 700px;
+      margin: 40px auto 0 auto;
+    }
+
+    /* Adjust the height of the iframe to match the container */
+    .gradio-container iframe {
+      height: 100%;
+      width: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navdiv">
+      <div class="logo"><a href="#">Augur</a></div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="https://github.com/higotenda/landru" target="_blank">Github</a></li>
+        <li><button><a href="#">SignIn</a></button></li>
+        <li><button><a href="#">SignOut</a></button></li>
+      </ul>
+    </div>
+  </nav>
+  <p class="animation">Traffic Flow Optimization</p>
+  <div class="gradio-container">
+    <iframe src="https://823d3753f253e371f6.gradio.live/" frameborder="0"></iframe>
+  </div>
+</body>
+</html>
