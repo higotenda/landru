@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LANDRU - Traffic Flow Optimization</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>LANDRU</h1>
+            <h2>Traffic Flow Optimization</h2>
+        </header>
+
+        <main>
+            <section class="search-section">
+                <form id="locationForm">
+                    <label for="locationInput">Enter Location:</label>
+                    <input type="text" id="locationInput" name="location" placeholder="City, Street, etc.">
+                    <button type="submit">Search</button>
+                </form>
+            </section>
+
+            <section class="map-section">
+                <div id="map"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
