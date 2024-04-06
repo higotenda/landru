@@ -17,7 +17,7 @@ iface = gr.Interface(
     inputs=[gr.Textbox(label="Enter the Location")],
     outputs="image",
     title="Landru",
-    description="Advaned Geospatial Traffic Optimization Simulator",
+    description="Landru Tate - Advaned Geospatial Traffic Optimization Simulator",
 )
 
-iface.launch(share=True)
+iface.launch()
