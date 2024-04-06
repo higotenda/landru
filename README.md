@@ -1,4 +1,4 @@
-# Landru
+![image](https://github.com/higotenda/landru/assets/138211208/792d3104-18ba-4c42-9e1a-3bfa223f82fc)# Landru
 
 ## Introduction
 
@@ -33,6 +33,10 @@ The Landru project relies on the following libraries, frameworks, and tools:
 1. **UXSim**: This library serves as the foundation for traffic simulation, providing essential functionalities for modeling traffic scenarios, including vehicle movement, traffic signals, and road networks.
 
 2. **Tianshou**: Tianshou is utilized as the core framework for implementing reinforcement learning algorithms. It provides a comprehensive set of tools and utilities for building and training reinforcement learning agents. In the context of Landru, Tianshou forms the basis for developing an intelligent agent capable of learning and optimizing traffic flow in real-time based on collected data.
+
+## Demo
+
+![Demo Image](https://github.com/higotenda/landru/blob/main/outputfinalnexus.png)
 
 ## Usage
 
