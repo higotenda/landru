@@ -164,3 +164,7 @@ out*/
 *.osm
 
 UXsim-main/
+
+*.pth
+
+log/
