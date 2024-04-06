@@ -1,12 +1,12 @@
-from sqlalchemy.sql.ddl import exc
 from uxsim import *
 import csv
 import logging
+from demparser import parse_demands
 
-# logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO);
 logger = logging.getLogger(__name__);
 
-SIMULATION_DURATION = 3600;
+SIMULATION_DURATION = 2*3600;
 
 def gen_links_from_csv(W, fname):
     """
@@ -46,7 +46,11 @@ gen_links_from_csv(W, "osm/map_edges.csv");
 
 W.show_network(network_font_size=1)
 
-W.adddemand_area2area(13.001867215947623, 77.56709046386388, 0, 12.999073447375757, 77.5724257603931, 0.05, 0, 3600, volume=5000)
+for (incord, outcords) in parse_demands("osm/area_demands.csv"):
+    logger.info(f"incord: {incord}, outcords: {outcords}");
+    for c in outcords:
+        logger.info(f"Added demand between {c} and {incord}");
+        W.adddemand_area2area(c[0], c[1], 0, incord[0], incord[1], 0.05, 0, SIMULATION_DURATION, volume=5000);
 
 W.exec_simulation();
 W.analyzer.output_data("out/sim");
