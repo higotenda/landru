@@ -6,7 +6,6 @@ import logging
 import math
 from demparser import convert_coords
 
-logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 #########SETTINGS########################

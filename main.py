@@ -5,7 +5,7 @@ from demparser import parse_demands
 import osm2csv as ocv
 import argparse
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.CRITICAL)
 logger = logging.getLogger(__name__)
 
 SIMULATION_DURATION = 2 * 3600
@@ -45,7 +45,7 @@ def gen_links_from_csv(W, fname):
         )
 
 
-def routine():
+def routine(noexec=False):
     # Define the main simulation
     # Units are standardized to seconds (s) and meters (m)
     W = World(
@@ -61,7 +61,7 @@ def routine():
     W.generate_Nodes_from_csv("osm/map_nodes.csv")
     gen_links_from_csv(W, "osm/map_edges.csv")
 
-    W.show_network(network_font_size=1)
+    W.show_network(network_font_size=1) if not noexec else print("W is dead")
 
     for incord, outcords in parse_demands("osm/area_demands.csv"):
         logger.info(f"incord: {incord}, outcords: {outcords}")
@@ -79,11 +79,14 @@ def routine():
                 volume=5000,
             )
 
-    W.exec_simulation()
-    logger.info("Creating anim...")
-    W.analyzer.network_anim(network_font_size=1, maxwidth=6)
-    logger.info("Finished creating animation")
-    W.analyzer.output_data("out/sim")
+    if not noexec:
+        W.exec_simulation()
+        logger.info("Creating anim...")
+        W.analyzer.network_anim(network_font_size=1, maxwidth=6)
+        logger.info("Finished creating animation")
+        W.analyzer.output_data("out/sim")
+    else:
+        return W
 
 
 def main():
