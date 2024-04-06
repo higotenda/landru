@@ -44,12 +44,12 @@ def convert_coords(fp: str, out: str, func, center):
         for line in f:
             if len(line) == 0:
                 continue
-
-            toks = line.split(",")
-            try:
-                pos = float(toks[1]), float(toks[2])
-                cps = func(pos, center)
-                print(toks[0], *cps, sep=",", file=f2)
-                logger.info(f"Point {pos} from {center} is {cps}")
-            except Exception as e:
-                logger.warn(f"Failed to parse line {line}")
+			toks = line.split(",");
+			try:
+				pos = float(toks[1]), float(toks[2]);
+				cps = func(pos, center);
+				print(toks[0], *cps, sep=',', file=f2);
+				logger.info(f"Point {pos} from {center} is {cps}");
+			except Exception as e:
+				logger.warn(f"Failed to parse line {line}");
+		print(file=f2);
