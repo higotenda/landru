@@ -1,3 +1,4 @@
+from collections import namedtuple
 import random
 import osmnx as ox
 import pandas as pd
@@ -8,7 +9,9 @@ from demparser import convert_coords
 logging.basicConfig(level=logging.DEBUG);
 logger = logging.getLogger(__name__);
 
-RAD_DIST = 1.2; # Get Radius of region around required place.
+#########SETTINGS########################
+
+RAD_DIST = 1.5; # Get Radius of region around required place.
 
 FREE_FLOW_SPEED_MAP = {
     "motorway":     13,
@@ -44,21 +47,25 @@ IMPL Ideas:
     3. Make demand non-uniform.
 """
 
+##########################################
+
 
 def local_coords(p1, p0, R=6_366_707):
     """
     Get local co-ords of p1 around p0 tuples of (lat, lon)
     """
     
-    theta, phi0 = p0[::-1];
-    theta1, phi1= p1[::-1];
+    theta, phi0 = p0;
+    theta1, phi1= p1;
+
+    theta, phi0, theta1, phi1 = (x*math.pi/180 for x in (theta, phi0, theta1, phi1));
 
     Tdiff = theta1 - theta;
     Pdiff = phi1 - phi0;
-    dx = R*Pdiff;
+    dx = R*math.cos(theta)*Pdiff;
     dy = R*Tdiff;
-    logger.debug(f"p1: {p1}, p0: {p0} are {(dx, dy)} away.");
-    return (dx, dy);
+    logger.debug(f"p1: {p1}, p0: {p0} [{Tdiff}, {Pdiff}] are {(dx, dy)} away.");
+    return (dy, dx);
 
 
 def get_lat_lon(location_name):

@@ -67,7 +67,11 @@ def routine():
             W.adddemand_area2area(c[0], c[1], 0, incord[0], incord[1], 0.05, 0, SIMULATION_DURATION, volume=5000);
 
     W.exec_simulation()
+    logger.info("Creating anim...")
+    W.analyzer.network_anim(network_font_size=1, maxwidth=6)
+    logger.info("Finished creating animation")
     W.analyzer.output_data("out/sim")
+
 
 def main():
     parser = argparse.ArgumentParser(description="Landru Traffic Optimizer CLI.");

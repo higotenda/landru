@@ -18,11 +18,12 @@ def parse_demands(fp: str):
 	with open(fp, 'r') as f:
 		for line in f:
 			line = line.strip();
-			
+
 			if len(line) == 0:
 				yield (in_cords, out_cords[::]);
 				in_cords = (0,0);
 				out_cords.clear();
+				continue
 
 			toks = line.split(",");
 
