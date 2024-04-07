@@ -38,7 +38,25 @@ This demonstration showcases the traffic flow optimization achieved through the 
 
 ## Usage
 
-To utilize Landru for traffic optimization, follow these steps:
+### Getting Started
+
+Follow these steps to set up the project:
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/higotenda/landru.git
+   ```
+
+2. **Create a Directory:**
+   Create a directory named "osm" in the root directory.
+
+3. **Create a CSV File:**
+   Create a new CSV file named "raw_demands.csv" in the root directory.
+
+4. **Run the Script:**
+   Run the `view.py` file, and the Gradio interface will start working.
+
+### To utilize Landru for traffic optimization, follow these steps:
 
 1. Clone the repository to your local environment.
 2. Install the necessary dependencies listed in the documentation.
