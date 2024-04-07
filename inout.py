@@ -41,15 +41,6 @@ def get_nearby_places(api_key, ll, radius=1500, place_type="restaurant"):
         return []
 
 
-# def get_location_from_user():
-#     while True:
-#         user_location = input("Enter the coordinates (latitude,longitude) of the crowded place: ")
-#         if ',' in user_location and len(user_location.split(',')) == 2:
-#             return user_location
-#         else:
-#             print("Invalid input format. Please enter the coordinates in the format 'latitude,longitude'.")
-
-
 def save_to_csv(crowded_place_coords, nearby_places_coords, csvfile):
     writer = csv.writer(csvfile)
     crowded_place_lat, crowded_place_lng = crowded_place_coords

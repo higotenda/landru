@@ -46,8 +46,7 @@ def gen_links_from_csv(W, fname):
 
 
 def routine(loc):
-    # Define the main simulation
-    # Units are standardized to seconds (s) and meters (m)
+
     W = World(
         name="",  # Scenario name
         deltan=5,  # Simulation aggregation unit delta n
@@ -61,7 +60,8 @@ def routine(loc):
     W.generate_Nodes_from_csv("osm/map_nodes.csv")
     gen_links_from_csv(W, "osm/map_edges.csv")
 
-    # W.show_network(network_font_size=1) if not noexec else print("W is dead")
+    logger.info("Generated world from osm data.")
+
     ctr = 0
     for incord, outcords in parse_demands("osm/area_demands.csv"):
         logger.info(f"incord: {incord}, outcords: {outcords}")
@@ -80,6 +80,8 @@ def routine(loc):
             )
             ctr += 1
 
+    logger.info(f"Net demands added {ctr}");0
+
     src = random.uniform(loc[0] - 1000, loc[0] + 1000), random.uniform(
         loc[1] - 1000, loc[1] + 1000
     )
@@ -87,6 +89,8 @@ def routine(loc):
         loc[1] - 1000, loc[1] + 1000
     )
     W.adddemand_area2area(*src, 0, *dst, 0.05, 0, SIMULATION_DURATION, volume=5000)
+
+    logger.info(f"Added a random demand as well: {src} -> {dst}")
 
     W.exec_simulation()
     logger.info("Creating anim...")

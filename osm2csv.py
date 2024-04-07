@@ -51,6 +51,13 @@ IMPL Ideas:
 
 ##########################################
 
+def global_warming(rad_dist, global_mean_jam_density, jam_density_variance, freeflow_speed_variance, freeflow_mean_shiftcoef):
+    global RAD_DIST, GLOBAL_MEAN_JAM_DENSITY, JAM_DENSITY_VARIANCE, FREEFLOW_SPEED_VARIANCE, FREEFLOW_MEAN_SHIFTCOEF
+    RAD_DIST = rad_dist
+    GLOBAL_MEAN_JAM_DENSITY = global_mean_jam_density
+    JAM_DENSITY_VARIANCE = jam_density_variance
+    FREEFLOW_SPEED_VARIANCE = freeflow_speed_variance
+    FREEFLOW_MEAN_SHIFTCOEF = freeflow_mean_shiftcoef
 
 def local_coords(p1, p0, R=6_366_707):
     """
@@ -204,18 +211,18 @@ def find_graph_from_loc(point):
 
 
 def process_address(addr):
-    g, loc = find_graph(addr)
+    graph, loc = find_graph(addr)
     logger.info("Collecting and Exporting to CSV..")
-    ndf, edf = export_to_csv(g, loc, "osm/map")
+    ndf, edf = export_to_csv(graph, loc, "osm/map")
     logger.info("Converting raw_demands.csv global co-ords to local.")
     convert_coords("raw_demands.csv", "osm/area_demands.csv", local_coords, loc)
     return loc
 
 
 def process_coords(point):
-    g = find_graph(point)
+    graph = find_graph(point)
     logger.info("Collecting and Exporting to CSV..")
-    ndf, edf = export_to_csv(g, point, "osm/map")
+    ndf, edf = export_to_csv(graph, point, "osm/map")
     logger.info("Converting raw_demands.csv global co-ords to local.")
     convert_coords("raw_demands.csv", "osm/area_demands.csv", local_coords, point)
     return point
